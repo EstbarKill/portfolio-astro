@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/public/assets/images/foto-anime.jpg"><meta name="generator" content="Astro v5.16.6"><title>Porfolio Cabarcas</title><link rel="stylesheet" href="/portfolio-astro/_astro/_slug_.bMuRQvEc.css">
+<link rel="stylesheet" href="/portfolio-astro/_astro/index.COQLqFKI.css"></head> <body>  <header class="site-header"> <nav class="nav-container"> <!-- Brand --> <a href="/" class="brand"> <div class="logo-ec">EC</div> <span class="brand-text">Portfolio</span> </a> <!-- Mobile button --> <button id="menuBtn" class="menu-toggle" aria-label="Abrir menú"> <span></span> <span></span> <span></span> </button> <!-- Desktop nav --> <ul class="nav-links"> <li><a href="/#experience-section">Experiencia</a></li> <li><a href="/#abaut-section">Sobre mi</a></li> <li><a href="/#projects-section">Proyectos</a></li> <li><a href="/#skills-section">Skills</a></li> <li><a href="/#contact-section">Contacto</a></li> </ul> </nav> <!-- Mobile menu --> <div id="mobileMenu" class="mobile-menu"> <ul> <li><a href="/#experience-section">Experiencia</a></li> <li><a href="/#abaut-section">Sobre mi</a></li> <li><a href="/#projects-section">Proyectos</a></li> <li><a href="/#skills-section">Skills</a></li> <li><a href="/#contact-section">Contacto</a></li> </ul> </div> </header> <section class="project-detail"> <!-- Title --> <header class="project-header"> <h1 class="project-title">Diseño en Packet Tracer</h1> <span class="project-badge">Red</span> </header> <!-- Image --> <div class="project-cover-wrapper"> <div class="project-cover-canvas"> <canvas id="project-canvas" class="project-canvas" aria-hidden></canvas> <img src="../../assets/images/projects/automation.png" alt="Diseño en Packet Tracer" class="project-cover"> </div> </div> <!-- Description --> <p class="project-description"> Dashboard para análisis financiero con gráficos dinámicos y control de usuarios. </p> <!-- Technologies --> <h3 class="project-subtitle">Tecnologías utilizadas</h3> <ul class="project-tech-list"> <li class="project-tech-item"> <span class="tech-dot"></span> Astro </li><li class="project-tech-item"> <span class="tech-dot"></span> Tailwind </li><li class="project-tech-item"> <span class="tech-dot"></span> Chart.js </li><li class="project-tech-item"> <span class="tech-dot"></span> API REST </li> </ul> <!-- CTA --> <a href="https://tuproyecto.com" target="_blank" class="project-cta">
+Ver proyecto en vivo →
+</a> </section>  <script src="/scripts/global.js" defer>
+</script></body></html> <script type="module">
+  // Canvas demo: simple particle field that reacts to mouse
+  const canvas = document.getElementById('project-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = canvas.clientWidth;
+    let h = canvas.height = canvas.clientHeight;
+
+    const particles = [];
+    const count = 40;
+
+    function rand(min, max) { return Math.random() * (max - min) + min; }
+
+    function resize() {
+      w = canvas.width = canvas.clientWidth;
+      h = canvas.height = canvas.clientHeight;
+    }
+
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: rand(0, w), y: rand(0, h),
+        r: rand(1, 3),
+        vx: rand(-0.3, 0.3), vy: rand(-0.3, 0.3)
+      });
+    }
+
+    let mouse = { x: -9999, y: -9999 };
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    function draw() {
+      ctx.clearRect(0,0,w,h);
+      for (const p of particles) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 120) {
+          p.vx += dx * 0.0005;
+          p.vy += dy * 0.0005;
+        }
+
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(56,189,248,0.9)';
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    draw();
+  }
+</script>
